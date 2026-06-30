@@ -7,10 +7,12 @@ public class Main {
         room.insertPerson("Billy","Hasson", 30);
         room.insertPerson("Valerie", "Newman", 34);
         room.printAll();
-        System.out.println("=================================");
+        System.out.println("====Sort by Last Name===");
         room.sortbyLastName();
-
         room.printAll();
-        
+        System.out.println("====Sort by Age===");
+        room.sortbyAge();
+        room.printAll();
+
     }
 }

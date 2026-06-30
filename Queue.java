@@ -21,7 +21,7 @@ public class Queue{
     //call sort to check if sort is empty or contains one element.
     public void sortbyLastName(){
         if(this.size < 2) {
-            System.out.println("Please two or more to be able to sort through.");
+            System.out.println("Please have two or more to be able to sort through.");
             return;
         }
         sortbyLastName(0,this.size - 1);
@@ -52,7 +52,7 @@ public class Queue{
             while (pivot.compareTo(people.get(highIndex).getLastName()) < 0){
                 highIndex--;
             }
-            //if zero or one elemnt remains, then all numbers are partitioned. return highIndex.
+            //if zero or one element remains, then all numbers are partitioned. return highIndex.
             if (lowIndex >= highIndex){
                 done = true;
             }
@@ -80,7 +80,66 @@ public class Queue{
         }
         return highIndex;
     }
-    public void sortbyAge(){
 
+    public void sortbyAge(){
+        if (this.size < 2) {
+            System.out.println("Please have two or more to be able to sort through.");
+            return;
+        }
+        sortbyAge(0, this.size -1 );
+    }
+    public void sortbyAge(int lowIndex, int highIndex) {
+        //Base Case: if the partion size is 1 or zero
+        if (lowIndex >= highIndex) {
+            return;
+        }
+        //parition the data within the array.
+        int lowEndIndex = partitionAge(lowIndex,highIndex);
+
+        //Recursively sort low parition (lowIndex to lowEndIndex) and high partition (lowEndIndex +1 to highIndex)
+        sortbyAge(lowIndex,lowEndIndex);
+        sortbyAge(lowEndIndex +1, highIndex);
+    }
+    public int partitionAge(int lowIndex, int highIndex) {
+        //Pick middle element as pivot
+        int midpoint = lowIndex + (highIndex - lowIndex)/2;
+        int pivot = people.get(midpoint).getAge();
+        boolean done = false;
+        while (!done){
+            //increment lowIndex to find an age that is greater than itself
+            while(people.get(lowIndex).getAge() < pivot) {
+                lowIndex++;
+            }
+            //Decrements highIndex to find a string taht is less than itself
+            while(pivot < people.get(highIndex).getAge()){
+                highIndex--;
+            }
+            //if zero or one element remains, then all numbers are partition. return highIndex.
+            if(lowIndex >= highIndex){
+                done = true;
+            }
+            //Swap people[lowIndex] with people[highIndex]
+            else{
+                //Temprary value to hold the person getting swapped
+                String tempFName = people.get(lowIndex).getFirstName();
+                String tempLName = people.get(lowIndex).getLastName();
+                int tempAge = people.get(lowIndex).getAge();
+
+                //Swap people[lowIndex] and people[highIndex]
+                people.get(lowIndex).setFirstName(people.get(highIndex).getFirstName());
+                people.get(lowIndex).setLastName(people.get(highIndex).getLastName());
+                people.get(lowIndex).setAge(people.get(highIndex).getAge());
+
+                //Assign new highIndex person
+                people.get(highIndex).setFirstName(tempFName);
+                people.get(highIndex).setLastName(tempLName);
+                people.get(highIndex).setAge(tempAge);
+
+                //Update lowIndex and highIndex
+                lowIndex++;
+                highIndex--;
+            }
+        }
+        return highIndex;
     }
 }
