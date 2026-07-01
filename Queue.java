@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Queue{
     ArrayList<Person> people = new ArrayList<Person>();
-    int size = 0;
+    private int size = 0;
     
     public Queue() {
     }
@@ -38,7 +38,7 @@ public class Queue{
         sortbyLastName(lowIndex, lowEndIndex);
         sortbyLastName(lowEndIndex + 1, highIndex);
     }
-    public int partitionLastName(int lowIndex, int highIndex){
+    private int partitionLastName(int lowIndex, int highIndex){
         //Pick middle element as pivot
         int midpoint = lowIndex + (highIndex-lowIndex)/2;
         String pivot = people.get(midpoint).getLastName();
@@ -100,7 +100,7 @@ public class Queue{
         sortbyAge(lowIndex,lowEndIndex);
         sortbyAge(lowEndIndex +1, highIndex);
     }
-    public int partitionAge(int lowIndex, int highIndex) {
+    private int partitionAge(int lowIndex, int highIndex) {
         //Pick middle element as pivot
         int midpoint = lowIndex + (highIndex - lowIndex)/2;
         int pivot = people.get(midpoint).getAge();
@@ -141,5 +141,8 @@ public class Queue{
             }
         }
         return highIndex;
+    }
+    public int size(){
+        return this.size;
     }
 }
